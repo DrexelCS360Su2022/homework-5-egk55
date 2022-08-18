@@ -2,7 +2,7 @@
 
 module HaskellIntro where
 
-import Set ( Set )
+import Set ( Set, isEmpty, split, empty, singleton, size)
 
 -- Load this file into GHCi (say, with `ghci HaskellIntro.hs`) and type
 -- `isThisWorking` at the prompt. GHCi will tell you whether it's working!
@@ -59,16 +59,19 @@ h n = if (n <= 0)
     else n - (pow h(n - 1) 3)
 
 d :: Integer -> Integer -> Integer
-d i n = if (n <= 0)
+d n i = if (n <= 0)
     then 0
-    else n - (pow d(i n-1) i)
+    else n - (d(n-1) i)
 --
 -- Problem 3
 --
 
-powerSet :: Set a -> Set temp -> Set a
+powerSet :: Set a -> Set(Set a)
 powerSet s = if (isEmpty s )
-    then Set []
+    then empty
     else 
-        split(s) = (x, xs)
-        (x : powerSet xs) ++ powerSet xs
+        if size s == 1
+            then singleton (s)
+        else 
+            powerSet (s)
+
